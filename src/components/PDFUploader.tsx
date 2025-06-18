@@ -64,7 +64,10 @@ const PDFUploader = ({ onTextReady }: PDFUploaderProps) => {
     <Flex direction="column" height="100%">
       <VStack spacing={4} align="stretch">
         <Text fontWeight="bold" fontSize="xl" textAlign="center">
-          Upload PDF
+          Upload PDF <br />
+          <Text as="span" fontSize="md" color="gray.500">
+            (Max 10 MB)
+          </Text>
         </Text>
 
         <IconButton
