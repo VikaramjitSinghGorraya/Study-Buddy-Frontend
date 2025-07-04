@@ -30,14 +30,17 @@ const ChatBox = ({ pdfText }: ChatBoxProps) => {
     setLoading(true);
 
     try {
-      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/ask`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          question: userMessage,
-          text: pdfText,
-        }),
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/api/ask/question`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            question: userMessage,
+            text: pdfText,
+          }),
+        }
+      );
 
       const data = await res.json();
       const aiMessage = data.answer || "Sorry, I couldn't find an answer.";
