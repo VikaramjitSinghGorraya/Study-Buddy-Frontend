@@ -1,5 +1,4 @@
 import {
-  Box,
   Flex,
   Textarea,
   Button,
@@ -11,7 +10,7 @@ import { useState, useRef, useEffect } from "react";
 import MessageBubble from "./MessageBubble";
 import { ChatBoxProps } from "../types/ChatBox";
 
-const ChatBox = ({ pdfText }: ChatBoxProps) => {
+const ChatBox = ({ pdfText, fileId }: ChatBoxProps) => {
   const endRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<string[]>([]);
   const [input, setInput] = useState("");
@@ -37,7 +36,7 @@ const ChatBox = ({ pdfText }: ChatBoxProps) => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             question: userMessage,
-            text: pdfText,
+            fileId,
           }),
         }
       );
@@ -49,7 +48,7 @@ const ChatBox = ({ pdfText }: ChatBoxProps) => {
     } catch (err) {
       setMessages((prev) => [...prev, "AI: Error reaching the server."]);
     } finally {
-      setLoading(false); // hide spinner
+      setLoading(false);
     }
   };
 

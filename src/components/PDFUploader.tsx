@@ -12,7 +12,7 @@ import {
 import { AddIcon } from "@chakra-ui/icons";
 
 type PDFUploaderProps = {
-  onTextReady: (text: string) => void;
+  onTextReady: (text: string, fileId: string) => void;
 };
 
 const PDFUploader = ({ onTextReady }: PDFUploaderProps) => {
@@ -39,7 +39,7 @@ const PDFUploader = ({ onTextReady }: PDFUploaderProps) => {
       );
 
       const data = await response.json();
-      onTextReady(data.text);
+      onTextReady(data.text, data.fileId); // ✅ pass fileId
 
       toast({
         title: "Upload successful!",
