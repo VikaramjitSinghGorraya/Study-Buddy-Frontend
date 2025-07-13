@@ -1,3 +1,4 @@
+// src/components/ChatBox.tsx
 import {
   Flex,
   Textarea,
@@ -8,13 +9,31 @@ import {
 } from "@chakra-ui/react";
 import { useState, useRef, useEffect } from "react";
 import MessageBubble from "./MessageBubble";
-import { ChatBoxProps } from "../types/ChatBox";
 
-const ChatBox = ({ pdfText, fileId }: ChatBoxProps) => {
+interface ChatBoxProps {
+  pdfText: string;
+  fileId: string;
+  resetFlag: boolean;
+  setResetFlag: (val: boolean) => void;
+}
+
+const ChatBox = ({
+  pdfText,
+  fileId,
+  resetFlag,
+  setResetFlag,
+}: ChatBoxProps) => {
   const endRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<string[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (resetFlag) {
+      setMessages([]);
+      setResetFlag(false);
+    }
+  }, [resetFlag, setResetFlag]);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });

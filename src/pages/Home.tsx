@@ -1,3 +1,4 @@
+// src/pages/Home.tsx
 import { useState } from "react";
 import { Flex, Box } from "@chakra-ui/react";
 import PDFUploader from "../components/PDFUploader";
@@ -6,6 +7,9 @@ import ChatBox from "../components/ChatBox";
 const Home = () => {
   const [pdfText, setPdfText] = useState("");
   const [fileId, setFileId] = useState("");
+  const [resetFlag, setResetFlag] = useState(false);
+
+  const resetChat = () => setResetFlag(true);
 
   return (
     <Flex
@@ -23,12 +27,18 @@ const Home = () => {
           onTextReady={(text, id) => {
             setPdfText(text);
             setFileId(id);
+            resetChat();
           }}
         />
       </Box>
 
       <Box flex="1" p={4}>
-        <ChatBox pdfText={pdfText} fileId={fileId} />
+        <ChatBox
+          pdfText={pdfText}
+          fileId={fileId}
+          resetFlag={resetFlag}
+          setResetFlag={setResetFlag}
+        />
       </Box>
     </Flex>
   );
